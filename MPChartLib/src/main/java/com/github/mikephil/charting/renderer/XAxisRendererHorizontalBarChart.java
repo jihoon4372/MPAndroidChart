@@ -138,13 +138,19 @@ public class XAxisRendererHorizontalBarChart extends XAxisRenderer {
 
         float[] positions = new float[mXAxis.mEntryCount * 2];
 
-        for (int i = 0; i < positions.length; i += 2) {
-
-            // only fill x values
-            if (centeringEnabled) {
-                positions[i + 1] = mXAxis.mCenteredEntries[i / 2];
-            } else {
-                positions[i + 1] = mXAxis.mEntries[i / 2];
+        if (mXAxis.isShowSpecificLabelPositions()){
+            positions = new float[mXAxis.getSpecificLabelPositions().length * 2];
+            for (int i = 0; i < positions.length; i += 2) {
+                positions[i] = mXAxis.getSpecificLabelPositions()[i / 2];
+            }
+        } else {
+            for (int i = 0; i < positions.length; i += 2) {
+                // only fill x values
+                if (centeringEnabled) {
+                    positions[i] = mXAxis.mCenteredEntries[i / 2];
+                } else {
+                    positions[i] = mXAxis.mEntries[i / 2];
+                }
             }
         }
 
@@ -155,8 +161,27 @@ public class XAxisRendererHorizontalBarChart extends XAxisRenderer {
             float y = positions[i + 1];
 
             if (mViewPortHandler.isInBoundsY(y)) {
+                String label = mXAxis.isShowSpecificLabelPositions() ?
+                        mXAxis.getValueFormatter().getFormattedValue(mXAxis.getSpecificLabelPositions()[i / 2], mXAxis)
+                        : mXAxis.getValueFormatter().getFormattedValue(mXAxis.mEntries[i / 2], mXAxis);
+                if (mXAxis.isAvoidFirstLastClippingEnabled()) {
 
-                String label = mXAxis.getValueFormatter().getFormattedValue(mXAxis.mEntries[i / 2], mXAxis);
+                    // avoid clipping of the last
+                    if (i / 2 == mXAxis.mEntryCount - 1 && mXAxis.mEntryCount > 1) {
+                        float width = Utils.calcTextWidth(mAxisLabelPaint, label);
+
+                        if (width > mViewPortHandler.offsetRight() * 2
+                                && x + width > mViewPortHandler.getChartWidth())
+                            x -= width / 2;
+
+                        // avoid clipping of the first
+                    } else if (i == 0) {
+
+                        float width = Utils.calcTextWidth(mAxisLabelPaint, label);
+                        x += width / 2;
+                    }
+                }
+
                 drawLabel(c, label, pos, y, anchor, labelRotationAngleDegrees);
             }
         }

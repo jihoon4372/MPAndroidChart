@@ -119,7 +119,6 @@ public class YAxisRenderer extends AxisRenderer {
                 specificLabelsPositions[i * 2 + 1] = mYAxis.getSpecificLabelPositions()[i];
             }
             mTrans.pointValuesToPixel(specificLabelsPositions);
-
             for (int i = 0; i < mYAxis.getSpecificLabelPositions().length; i++) {
                 float y = specificLabelsPositions[i * 2 + 1];
                 if (mViewPortHandler.isInBoundsY(y)) {
@@ -127,7 +126,6 @@ public class YAxisRenderer extends AxisRenderer {
                     c.drawText(text, fixedPosition, y + offset, mAxisLabelPaint);
                 }
             }
-
             return;
         }
 

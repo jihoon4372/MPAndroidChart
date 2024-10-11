@@ -191,7 +191,6 @@ public class XAxisRenderer extends AxisRenderer {
             }
         } else {
             for (int i = 0; i < positions.length; i += 2) {
-
                 // only fill x values
                 if (centeringEnabled) {
                     positions[i] = mXAxis.mCenteredEntries[i / 2];
