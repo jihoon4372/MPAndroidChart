@@ -154,14 +154,6 @@ public abstract class AxisBase extends ComponentBase {
 
     private int mAxisMinLabels = 2;
     private int mAxisMaxLabels = 25;
-    /**
-     * if true, then labels are displayed using specificLabelPositions instead of computed ones
-     */
-    private boolean showSpecificLabelPositions = false;
-    /**
-     * specify to which values labels must be displayed. has no effect if not used showSpecificLabelPositions set to true
-     */
-    private float[] specificLabelPositions = new float[]{};
 
     /**
      * The minumum number of labels on the axis
@@ -821,24 +813,4 @@ public abstract class AxisBase extends ComponentBase {
     {
         this.mSpaceMax = mSpaceMax;
     }
-    /**
-     * if set to true, labels will be displayed at the specific positions passed in via setSpecificLabelPositions
-     */
-    public void setShowSpecificLabelPositions(boolean showSpecificLabelPositions)
-    {
-        this.showSpecificLabelPositions = showSpecificLabelPositions;
-    }
-    public boolean isShowSpecificLabelPositions()
-    {
-        return showSpecificLabelPositions;
-    }
-    public void setSpecificLabelPositions(float[] specificLabelPositions)
-    {
-        this.specificLabelPositions = specificLabelPositions;
-    }
-    public float[] getSpecificLabelPositions()
-    {
-        return specificLabelPositions;
-    }
-
 }
