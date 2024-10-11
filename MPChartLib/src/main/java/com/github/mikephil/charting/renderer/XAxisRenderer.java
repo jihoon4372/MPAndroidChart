@@ -208,6 +208,7 @@ public class XAxisRenderer extends AxisRenderer {
             float x = positions[i];
 
             if (mViewPortHandler.isInBoundsX(x)) {
+
                 String label = mXAxis.isShowSpecificLabelPositions() ?
                         mXAxis.getValueFormatter().getFormattedValue(mXAxis.getSpecificLabelPositions()[i / 2], mXAxis)
                         : mXAxis.getValueFormatter().getFormattedValue(mXAxis.mEntries[i / 2], mXAxis);

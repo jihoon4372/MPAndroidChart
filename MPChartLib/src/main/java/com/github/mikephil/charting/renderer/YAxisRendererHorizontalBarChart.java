@@ -132,26 +132,10 @@ public class YAxisRendererHorizontalBarChart extends YAxisRenderer {
      */
     @Override
     protected void drawYLabels(Canvas c, float fixedPosition, float[] positions, float offset) {
-        if(mYAxis.isShowSpecificLabelPositions()){
-            float[] specificLabelsPositions = new float[mYAxis.getSpecificLabelPositions().length * 2];
-            for (int i = 0; i < mYAxis.getSpecificLabelPositions().length; i++) {
-                specificLabelsPositions[i * 2 + 1] = mYAxis.getSpecificLabelPositions()[i];
-            }
-            mTrans.pointValuesToPixel(specificLabelsPositions);
 
-            for (int i = 0; i < mYAxis.getSpecificLabelPositions().length; i++) {
-                float y = specificLabelsPositions[i * 2 + 1];
-                if (mViewPortHandler.isInBoundsY(y)) {
-                    String text = mYAxis.getValueFormatter().getFormattedValue(mYAxis.getSpecificLabelPositions()[i], mYAxis);
-                    c.drawText(text, fixedPosition, y + offset, mAxisLabelPaint);
-                }
-            }
-
-            return;
-        }
-//        mAxisLabelPaint.setTypeface(mYAxis.getTypeface());
-//        mAxisLabelPaint.setTextSize(mYAxis.getTextSize());
-//        mAxisLabelPaint.setColor(mYAxis.getTextColor());
+        mAxisLabelPaint.setTypeface(mYAxis.getTypeface());
+        mAxisLabelPaint.setTextSize(mYAxis.getTextSize());
+        mAxisLabelPaint.setColor(mYAxis.getTextColor());
 
         final int from = mYAxis.isDrawBottomYLabelEntryEnabled() ? 0 : 1;
         final int to = mYAxis.isDrawTopYLabelEntryEnabled()
